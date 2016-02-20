@@ -1,0 +1,67 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\author{FILIP STENBECK	930702-4530 \\ ALEXANDER RAMM 931005-8418}
+\date{Febuary 2016}
+\title{Homework 2}
+\begin{document}
+\maketitle
+\clearpage
+\section*{Part 1:}
+\section*{Part 2:}
+\subsection*{1. " Calculate analytically the closed-loop equations of the system."}
+The following network control system is given. 
+\begin{equation}
+\dot{x}=Ax+Bu
+\end{equation}\\ Where the matrices $A$, $B$ are set to be $0$, $I$ since the system is a simple integrator. The input $u$ is set to be. \\
+\begin{equation*}
+u=-Kx
+\end{equation*}\\
+In the network two delays are introduced. One before and one after the controller. This results in that the input of the system is delayed $\tau_{sc}+\tau_{ea}$ seconds. Since $\tau_{sc}+\tau_{ea}<h$ the input signal can be written.\\
+\begin{equation}\label{knep1}
+u=
+\begin{cases}
+u_0=-Kx(kh-h)&kh<t<kh+\tau_{sc}+\tau_{ea}\\
+u_1=-Kx(kh)&kh+\tau_{sc}+\tau_{ea}<t<kh+h
+\end{cases}
+\end{equation}
+With this we can formulate the closed loop equation.
+\begin{equation*}
+x(kh+h)=\mathrm{e}^{Ah}+\int_{kh}^{kh+h} \mathrm{e}^{AS}\,\mathrm{d}S Bu
+\end{equation*}
+\begin{equation}\label{knep2}
+=\mathrm{e}^{Ah}x(kh)+\int_{kh}^{kh+\tau_{sc}+\tau_{ea}} \mathrm{e}^{AS}\,\mathrm{d}S Bu_0+\int_{kh+\tau_{sc}+\tau_{ea}}^{kh+h} \mathrm{e}^{AS}\,\mathrm{d}S Bu_1
+\end{equation}
+Setting the time delay $\tau=\tau_{sc}+\tau_{ea}$ and combining the equations \ref{knep1} with \ref{knep2} we result in the following closed loop equation.
+\begin{equation*}
+x(kh+h)=\begin{bmatrix}
+1+K(\tau-h)&0\\
+0&-K\tau
+\end{bmatrix}
+\begin{bmatrix}
+x(kh)\\
+x(kh-1)
+\end{bmatrix}
+\end{equation*}
+\subsection*{2}
+Since the continuous plant is a simple integrator $G(s)=\frac{1}{s}$ we get that the zero-order hold of the continuous plant will have the following pulse-transfer function.
+\begin{equation*}
+H(z)=\frac{h}{z-1}
+\end{equation*}
+With the controller as $C(z)=-K$ we will have a stable system if.
+\begin{equation*}
+|\frac{G(z)C(z)}{1+G(z)C(z)}|<\frac{1}{\tau z},	z\in R
+\end{equation*}
+This can be written as.
+\begin{equation*}
+hK(1-z\tau)<z-1,	z\in R
+\end{equation*}
+
+
+
+
+
+\end{document}
